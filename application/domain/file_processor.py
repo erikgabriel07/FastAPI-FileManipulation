@@ -1,5 +1,4 @@
-import os
-import csv
+import os, csv
 from fastapi.exceptions import HTTPException
 from fastapi import status, UploadFile
 
@@ -33,13 +32,33 @@ class FileProcessor:
 
         if file.content_type == 'text/csv':
             try:
-                csv_reader = csv.DictReader(file.file)
+                contents = await file.read()
+                decoded_file = contents.decode('utf-8').splitlines()
+                
+                csv_reader = csv.DictReader(decoded_file)
                 for row in csv_reader:
-                    data = {'conta': row[0], 'agencia': row[1], 'texto': row[2], 'valor': float(row[3])}
-                print(data)
+                    print(row)
             except Exception as e:
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                                     detail={'message': 'Erro ao processar arquivo!', 'error': str(e)})
         else:
             raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE,
                                 detail={'message': 'Tipo de arquivo inválido! Apenas CSV permitido!'})
+        return {'message': 'Seu arquivo foi processado com sucesso!'}
+
+    async def add_data_to_file(self, data: dict):
+        """
+        Add data to a created file
+        :param data: account data history
+        :return: error or success message
+        """
+
+        if os.path.exists(self.file_path):
+            with open(self.file_path, mode='a', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow([data['Conta'], data['Agencia'], data['Texto'], data['Valor']])
+                return {'message': 'Dados adicionados com sucesso!', 'data': data}
+        else:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                detail={'message': 'O arquivo indicado não existe! '
+                                        'Por favor, acesse a rota para a criação do arquivo.'})
