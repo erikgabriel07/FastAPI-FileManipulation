@@ -1,4 +1,4 @@
-import os, csv
+import os, csv, time
 from fastapi.exceptions import HTTPException
 from fastapi import status, UploadFile
 
@@ -63,8 +63,9 @@ class FileProcessor:
                                 detail={'message': 'O arquivo indicado não existe! '
                                         'Por favor, acesse a rota para a criação do arquivo.'})
         
-    def file_content_listing(self):
+    async def file_content_listing(self):
         if os.path.exists(self.file_path):
+            start_time = time.perf_counter()
             with open(self.file_path, mode='r') as file:
                 lines = file.readlines()
                 headers = lines[0].split(',')
@@ -75,7 +76,9 @@ class FileProcessor:
                                             headers[2]: line.split(',')[2],
                                             headers[3]: line.split(',')[3],
                                             }
-            return data
+            end_time = time.perf_counter()
+            exec_time = end_time - start_time
+            return {'timing': f'{exec_time:.3f}s', 'data': data}
         else:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                 detail={'message': 'O arquivo indicado não existe! '
