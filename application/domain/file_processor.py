@@ -62,3 +62,21 @@ class FileProcessor:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                 detail={'message': 'O arquivo indicado não existe! '
                                         'Por favor, acesse a rota para a criação do arquivo.'})
+        
+    def file_content_listing(self):
+        if os.path.exists(self.file_path):
+            with open(self.file_path, mode='r') as file:
+                lines = file.readlines()
+                headers = lines[0].split(',')
+                data = dict()
+                for i, line in enumerate(lines[1:]):
+                    data[f'linha_{i+1}'] = {headers[0]: line.split(',')[0],
+                                            headers[1]: line.split(',')[1],
+                                            headers[2]: line.split(',')[2],
+                                            headers[3]: line.split(',')[3],
+                                            }
+            return data
+        else:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                detail={'message': 'O arquivo indicado não existe! '
+                                        'Por favor, acesse a rota para a criação do arquivo.'})

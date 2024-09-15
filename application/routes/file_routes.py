@@ -31,4 +31,4 @@ async def delete_data():
 
 @router.get('/file/list_files')
 async def list_files():
-    return {'message': 'Lista de dados'}
+    return FileProcessor().file_content_listing()
