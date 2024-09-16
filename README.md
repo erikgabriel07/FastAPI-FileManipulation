@@ -86,4 +86,4 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar 
 
 ## Licença
 
-Este projeto está licenciado sob a licença MIT. Consulte o arquivo [https://github.com/erikgabriel07/FastAPI-FileManipulation/blob/main/LICENSE](LICENSE) para obter mais informações.
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo [LICENSE](https://github.com/erikgabriel07/FastAPI-FileManipulation/blob/main/LICENSE) para obter mais informações.
