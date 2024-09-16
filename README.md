@@ -1,4 +1,4 @@
-# Fastapi-File
+# FastAPI-FileManipulation
 
 Desenvolvimento de um serviço monolítico em linguagem Python utilizando o Framework FastAPI com Upload e Manipulação de Arquivos
 
@@ -32,7 +32,7 @@ Desenvolvimento de um serviço monolítico em linguagem Python utilizando o Fram
 
     ```bash
     git clone https://github.com/erikgabriel07/FastAPI-FileManipulation
-    cd fastapi-file
+    cd FastAPI-FileManipulation
     ```
 
 2. Crie um ambiente virtual:
