@@ -31,7 +31,7 @@ Desenvolvimento de um serviço monolítico em linguagem Python utilizando o Fram
 1. Clone o repositório:
 
     ```bash
-    git clone [https://github.com/erikgabriel07/FastAPI-FileManipulation.git](https://github.com/erikgabriel07/FastAPI-FileManipulation.git)
+    git clone https://github.com/erikgabriel07/FastAPI-FileManipulation
     cd fastapi-file
     ```
 
