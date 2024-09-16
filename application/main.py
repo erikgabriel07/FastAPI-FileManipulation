@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from routes import init_routes
 
 
-app = FastAPI()
+app = FastAPI(debug=True)
 
 init_routes(app)
 
