@@ -64,17 +64,24 @@ class FileProcessor:
                                         'Por favor, acesse a rota para a criação do arquivo.'})
         
     async def file_content_listing(self):
+        """
+        This function list all lines
+        that a csv file contains
+        :return: error message or dictionary
+        """
+        
         if os.path.exists(self.file_path):
             start_time = time.perf_counter()
             with open(self.file_path, mode='r') as file:
+                data = dict()
                 lines = file.readlines()
                 headers = lines[0].split(',')
-                data = dict()
                 for i, line in enumerate(lines[1:]):
-                    data[f'linha_{i+1}'] = {headers[0]: line.split(',')[0],
-                                            headers[1]: line.split(',')[1],
-                                            headers[2]: line.split(',')[2],
-                                            headers[3]: line.split(',')[3],
+                    line_values = line.split(',')
+                    data[f'linha_{i+1}'] = {headers[0]: line_values[0],
+                                            headers[1]: line_values[1],
+                                            headers[2]: line_values[2],
+                                            headers[3]: line_values[3],
                                             }
             end_time = time.perf_counter()
             exec_time = end_time - start_time

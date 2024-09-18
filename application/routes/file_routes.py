@@ -1,6 +1,7 @@
 from fastapi import (
     APIRouter, UploadFile, File
 )
+#from fastapi.exceptions import HTTPException
 from domain.file_processor import FileProcessor
 
 
