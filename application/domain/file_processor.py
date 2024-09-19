@@ -62,6 +62,23 @@ class FileProcessor:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                 detail={'message': 'O arquivo indicado não existe! '
                                         'Por favor, acesse a rota para a criação do arquivo.'})
+    
+    async def delete_data(self, selected_line: int):
+        if os.path.exists(self.file_path):
+            with open(self.file_path, mode='r') as file:
+                lines = file.readlines()
+
+            if selected_line < 1 or selected_line >= len(lines):
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail={'message': 'Linha selecionada inválida!'})
+            
+            with open(self.file_path, mode='w') as file:
+                for index, line in enumerate(lines):
+                    if index != selected_line:
+                        file.write(line)
+            return {'message': 'Linha deletada com sucesso'}
+        else:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail={'message': 'Arquivo não encontrado! '
+                                                                               'Por favor, crie um arquivo.'})
         
     async def file_content_listing(self):
         """

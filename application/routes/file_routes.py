@@ -25,8 +25,8 @@ async def add_data(conta: str, agencia: str, texto: str, valor: float):
 
 
 @router.delete('/file/delete_data')
-async def delete_data():
-    return {'message': 'Dados removidos com sucesso'}
+async def delete_data(selected_line: int):
+    return await FileProcessor().delete_data(selected_line)
 
 
 @router.get('/file/list_files')
